@@ -189,7 +189,7 @@ if __name__ == '__main__':
         mode_bg_geom=None,  # TODO
         mode_bg_noise='perlin', # TODO
         num_imgs=20000,  # TODO
-        out_dir=r'F:\datasets\vfm\gen\noshape',  # TODO
+        out_dir=r'path/to/output/dir',  # TODO
 
         num_voronoi_min=10, num_voronoi_max=30,
         num_spheres_min=10, num_spheres_max=30, rad_min=20, rad_max=50, max_attempts=1000,
