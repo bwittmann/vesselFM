@@ -44,7 +44,8 @@ class BackgroundGen3D():
 
  
     def __call__(self):
-        output_imgs = []
+        # output_imgs = []
+        output_img = None
 
         for idx in range(self.num_imgs):
             print(f'Generating img {idx}.')
@@ -87,8 +88,8 @@ class BackgroundGen3D():
             if self.save_imgs:
                 np.save(self.out_dir / (self.img_type + f'_{idx}.npy'), output_img.astype(np.float16))
 
-            output_imgs.append(output_img)
-        return output_imgs
+            # output_imgs.append(output_img)
+        return output_img
     
     def generate_spheres(self):
         def is_overlapping(array, center, radius):
@@ -184,23 +185,24 @@ class BackgroundGen3D():
 if __name__ == '__main__':
     import matplotlib.pyplot as plt
 
-    imgs = BackgroundGen3D(
+    img = BackgroundGen3D(
         mode_bg_geom=None,  # TODO
         mode_bg_noise='perlin', # TODO
         num_imgs=20000,  # TODO
-        out_dir='path/to/output/dir',  # TODO
+        out_dir=r'path/to/output/dir',  # TODO
 
         num_voronoi_min=10, num_voronoi_max=30,
         num_spheres_min=10, num_spheres_max=30, rad_min=20, rad_max=50, max_attempts=1000,
         perlin_scales=[2, 4, 8, 16, 32, 64], perlin_min_std=0, perlin_max_std=5,
     )()
-    img = imgs[-1]
+    # img = imgs[-1]
 
-    fig, axes = plt.subplots(4, 4, figsize=(10, 10))
-    for idx in range(16):
-        ax = axes[idx // 4, idx % 4]
-        ax.imshow(img[:, idx*7, :].squeeze(), cmap='gray')
-        ax.axis('off')
+    if img:
+        fig, axes = plt.subplots(4, 4, figsize=(10, 10))
+        for idx in range(16):
+            ax = axes[idx // 4, idx % 4]
+            ax.imshow(img[:, idx*7, :].squeeze(), cmap='gray')
+            ax.axis('off')
 
-    plt.tight_layout()
-    plt.savefig('./bg_sample.png')
+        plt.tight_layout()
+        plt.savefig('./bg_sample.png')
