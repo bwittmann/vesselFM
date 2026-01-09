@@ -106,7 +106,8 @@ def main(cfg):
             preds = [] # average over test time augmentations
             for scale in cfg.tta.scales:
                 # apply pre-processing transforms
-                image = transforms(image_reader_writer.read_images(image_path)[0].astype(np.float32))[None].to(device)
+                image_originale, metadata = image_reader_writer.read_images(image_path)
+                image = transforms(image_originale.astype(np.float32))[None].to(device)
                 mask = torch.tensor(image_reader_writer.read_images(mask_paths[idx])[0]).bool() if mask_paths else None
   
                 # apply test time augmentation
@@ -139,7 +140,7 @@ def main(cfg):
 
             # save final pred
             save_writer.write_seg(
-                pred_thresh.astype(np.uint8), output_folder / f"{image_path.name.split('.')[0]}_{cfg.file_app}pred.{file_ending}"
+                pred_thresh.astype(np.uint8), output_folder / f"{image_path.name.split('.')[0]}_{cfg.file_app}pred.{file_ending}", metadata["other"]
             )
 
             if mask_paths is not None:
