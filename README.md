@@ -19,7 +19,7 @@ First, set up a conda environment and install dependencies:
 
 
 ## 🟢 *Zero*-Shot Segmentation
-If you are solely interested in running vesselFM's inference script for *zero*-shot segmentation of data at hand, adjust the respecitve [config file](vesselfm/seg/configs/inference.yaml) (see `#TODO`) and run:
+If you are solely interested in running vesselFM's inference script for *zero*-shot segmentation of data at hand, adjust the respective [config file](vesselfm/seg/configs/inference.yaml) (see `#TODO`) and run:
 
     python vesselfm/seg/inference.py
 
